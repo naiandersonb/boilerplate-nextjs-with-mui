@@ -2,7 +2,7 @@
 
 import { queryClient } from "@/lib/query-client";
 import theme from "@/theme";
-import { ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -14,7 +14,10 @@ export const AppProvider: React.FC<PropsWithChildren> = ({ children }) => {
     <AppRouterCacheProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
         </QueryClientProvider>
       </LocalizationProvider>
     </AppRouterCacheProvider>

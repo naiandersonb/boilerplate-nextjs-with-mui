@@ -1,9 +1,6 @@
-import { Stack, Typography } from "@mui/material";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <Stack>
-      <Typography>Hello world</Typography>
-    </Stack>
-  );
+export default function IndexPage() {
+  redirect("/home");
+  return null;
 }
