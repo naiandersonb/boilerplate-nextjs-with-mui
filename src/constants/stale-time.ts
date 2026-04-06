@@ -1,0 +1,7 @@
+export const STALE_TIME = {
+  ONE_MINUTE: 60 * 1000,
+  TEN_MINUTE: 60 * 10 * 1000,
+  THIRTY_MINUTES: 60 * 30 * 1000,
+  ONE_HOUR: 60 * 60 * 1000,
+  ONE_DAY: 24 * 60 * 60 * 1000,
+};
