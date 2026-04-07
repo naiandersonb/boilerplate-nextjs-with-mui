@@ -1,5 +1,4 @@
-import { Header } from "@/components/layout/Header";
-import { Actions } from "@/components/layout/Actions";
+import { HomeAppBar } from "@/components/layout/HomeAppBar";
 
 export default function RootLayout({
   children,
@@ -8,7 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Header actions={<Actions />} />
+      <HomeAppBar />
       {children}
     </>
   );

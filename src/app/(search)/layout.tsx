@@ -1,4 +1,4 @@
-import { Header } from "@/components/layout/Header";
+import { SearchAppBar } from "@/components/layout/SearchAppBar";
 
 export default function RootLayout({
   children,
@@ -7,7 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Header />
+      <SearchAppBar />
       {children}
     </>
   );

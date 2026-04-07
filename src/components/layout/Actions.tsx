@@ -1,33 +1,60 @@
 "use client";
 
-import { useAnchor } from "@/hooks/use-anchor";
 import { useDevice } from "@/hooks/use-device";
-import { Button, IconButton, Menu, MenuItem, Stack } from "@mui/material";
-import { Menu as MenuIcon } from "@mui/icons-material";
+import {
+  Button,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+} from "@mui/material";
+import {
+  HelpOutline,
+  MedicalServicesOutlined,
+  Menu as MenuIcon,
+} from "@mui/icons-material";
+import { useDisclosure } from "@/hooks/use-disclosure";
 
 export const Actions = () => {
   const { isMobile } = useDevice();
-  const { anchorEl, handleClose, handleOpen, id, isOpen } =
-    useAnchor("mobile-menu");
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   if (isMobile) {
     return (
       <>
-        <IconButton onClick={handleOpen} edge="end" aria-label="menu">
+        <IconButton onClick={onOpen} edge="end" aria-label="menu">
           <MenuIcon />
         </IconButton>
+        <Drawer open={isOpen} onClose={onClose}>
+          <List sx={{ minWidth: 250 }}>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <HelpOutline
+                    sx={({ palette }) => ({ color: palette.text.primary })}
+                  />
+                </ListItemIcon>
 
-        <Menu
-          id={id}
-          anchorEl={anchorEl}
-          open={isOpen}
-          onClose={handleClose}
-          transformOrigin={{ horizontal: "right", vertical: "top" }}
-          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-        >
-          <MenuItem onClick={handleClose}>Como funciona</MenuItem>
-          <MenuItem onClick={handleClose}>Para médicos</MenuItem>
-        </Menu>
+                <ListItemText primary="Como funciona" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <MedicalServicesOutlined
+                    sx={({ palette }) => ({ color: palette.text.primary })}
+                  />
+                </ListItemIcon>
+
+                <ListItemText primary="Para médicos" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Drawer>
       </>
     );
   }

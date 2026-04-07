@@ -7,6 +7,7 @@ import {
 } from "@mui/icons-material";
 import {
   Avatar,
+  Button,
   Divider,
   IconButton,
   ListItemIcon,
@@ -21,6 +22,16 @@ export const UserMenu = () => {
   const { isMobile } = useDevice();
   const { anchorEl, handleClose, handleOpen, id, isOpen } =
     useAnchor("mobile-menu");
+
+  const auth = false;
+
+  if (!auth) {
+    return (
+      <Button variant="contained" disableElevation>
+        Entrar
+      </Button>
+    );
+  }
 
   return (
     <>
