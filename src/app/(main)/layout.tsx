@@ -1,5 +1,5 @@
 import { Header } from "@/components/layout/Header";
-import { ActionButtons } from "@/components/layout/ActionButtons";
+import { Actions } from "@/components/layout/Actions";
 
 export default function RootLayout({
   children,
@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Header actions={<ActionButtons />} />
+      <Header actions={<Actions />} />
       {children}
     </>
   );
