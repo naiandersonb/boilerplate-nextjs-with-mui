@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar } from "@mui/material";
+import { alpha, AppBar, Box, Toolbar } from "@mui/material";
 import { PropsWithChildren } from "react";
 
 export const HeaderContainer: React.FC<PropsWithChildren> = ({ children }) => {
@@ -7,13 +7,12 @@ export const HeaderContainer: React.FC<PropsWithChildren> = ({ children }) => {
       <AppBar
         position="fixed"
         sx={({ palette }) => ({
-          backgroundColor: "transparent",
-          //backgroundColor: alpha(palette.common.white, 0.7),
-          //backdropFilter: "blur(10px)",
-          //WebkitBackdropFilter: "blur(10px)",
+          backgroundColor: alpha(palette.common.white, 0.8),
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
           boxShadow: 0,
-          //borderBottom: "1px solid",
-          //borderBottomColor: alpha(palette.divider, 0.1),
+          borderBottom: "1px solid",
+          borderBottomColor: alpha(palette.divider, 0.1),
           color: palette.text.primary,
         })}
       >

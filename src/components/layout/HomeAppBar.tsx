@@ -14,7 +14,7 @@ export const HomeAppBar = () => {
         spacing="2px"
         alignItems="center"
         justifyContent="space-between"
-        sx={{ maxWidth: 1200, width: "100%", marginX: "auto" }}
+        sx={{ width: "100%", marginX: "auto" }}
       >
         <AppBarLogo />
 
