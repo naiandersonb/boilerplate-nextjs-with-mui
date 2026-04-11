@@ -19,6 +19,10 @@ import {
 } from "@mui/icons-material";
 import { useDisclosure } from "@/hooks/use-disclosure";
 
+/**
+ * @deprecated
+ * @returns 
+ */
 export const Actions = () => {
   const { isMobile } = useDevice();
   const { isOpen, onClose, onOpen } = useDisclosure();

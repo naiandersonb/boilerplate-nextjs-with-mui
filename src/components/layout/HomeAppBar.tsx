@@ -2,24 +2,21 @@
 
 import { Stack } from "@mui/material";
 import { HeaderContainer } from "./HeaderContainer";
-import { useDevice } from "@/hooks/use-device";
-import { Actions } from "./Actions";
 import { UserMenu } from "./UserMenu";
 
 import { AppBarLogo } from "./AppBarLogo";
 
 export const HomeAppBar = () => {
-  const { isMobile } = useDevice();
   return (
     <HeaderContainer>
-      <Stack direction="row" spacing="2px" alignItems="center">
-        {isMobile && <Actions />}
-
+      <Stack
+        direction="row"
+        spacing="2px"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ maxWidth: 1200, width: "100%", marginX: "auto" }}
+      >
         <AppBarLogo />
-      </Stack>
-
-      <Stack direction="row" spacing={1} alignItems="center">
-        {!isMobile && <Actions />}
 
         <UserMenu />
       </Stack>

@@ -1,9 +1,10 @@
-import { Stack, Typography } from "@mui/material";
+import { Hero } from "@/components/homepage/Hero";
+import { Stack } from "@mui/material";
 
 export default function Home() {
   return (
     <Stack>
-      <Typography>Hello world</Typography>
+      <Hero />
     </Stack>
   );
 }
