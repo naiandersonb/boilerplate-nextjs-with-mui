@@ -1,6 +1,7 @@
 "use client";
 
-import { ExpandMore, PlaceOutlined, Search } from "@mui/icons-material";
+import { useDevice } from "@/hooks/use-device";
+import { PlaceOutlined, Search } from "@mui/icons-material";
 import {
   Autocomplete,
   Button,
@@ -11,32 +12,51 @@ import {
 } from "@mui/material";
 
 export const SearchForm = () => {
+  const { isMobile } = useDevice();
   return (
     <Stack
-      sx={({ palette }) => ({
+      sx={({ palette, shadows }) => ({
+        boxShadow: shadows[4],
         backgroundColor: palette.common.white,
-        paddingX: "40px",
-        paddingY: "60px",
+        paddingX: { xs: "24px", md: "40px", lg: "40px" },
+        paddingY: { xs: "24px", md: "40px", lg: "60px" },
         maxWidth: 600,
       })}
     >
-      <Typography variant="h4">
+      <Typography
+        fontSize={{ xs: "24px", md: "40px" }}
+        variant="h4"
+        fontWeight={500}
+      >
         Agende sua consulta particular com especialistas perto de você
       </Typography>
 
-      <Typography sx={{ mt: 2 }} variant="h5" color="textSecondary">
+      <Typography
+        sx={{ mt: 2 }}
+        fontSize={{ xs: "16px", md: "22px" }}
+        variant="h5"
+        color="textSecondary"
+      >
         Consulta segura, rápida e com pagamento antecipado
       </Typography>
 
       <Stack component="form" sx={{ mt: 4, gap: 2 }}>
         <Autocomplete
+          size={isMobile ? "small" : "medium"}
           renderInput={(params) => (
             <TextField
               {...params}
               placeholder="Especialidade ou médico"
               variant="outlined"
               slotProps={{
-                input: { sx: { borderRadius: 0 } },
+                input: {
+                  sx: { borderRadius: 0 },
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  ),
+                },
               }}
             />
           )}
@@ -44,6 +64,7 @@ export const SearchForm = () => {
         />
 
         <Autocomplete
+          size={isMobile ? "small" : "medium"}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -66,8 +87,7 @@ export const SearchForm = () => {
 
         <Button
           variant="contained"
-          size="large"
-          startIcon={<Search />}
+          size={isMobile ? "medium" : "large"}
           type="submit"
         >
           Buscar médicos
