@@ -8,91 +8,94 @@ import {
   InputAdornment,
   Stack,
   TextField,
-  Typography,
 } from "@mui/material";
 
 export const SearchForm = () => {
   const { isMobile } = useDevice();
+
+  if (isMobile) {
+    return (
+      <TextField
+        variant="outlined"
+        placeholder="Especialidade ou médico"
+        sx={() => ({ border: "none" })}
+        slotProps={{
+          input: {
+            sx: { borderRadius: 0, backgroundColor: "white" },
+            endAdornment: (
+              <InputAdornment position="end">
+                <Search color="primary" />
+              </InputAdornment>
+            ),
+          },
+        }}
+      />
+    );
+  }
+
   return (
-    <Stack
-      sx={({ palette, shadows }) => ({
-        boxShadow: shadows[4],
-        backgroundColor: palette.common.white,
-        paddingX: { xs: "24px", md: "40px", lg: "40px" },
-        paddingY: { xs: "24px", md: "40px", lg: "60px" },
-        maxWidth: 600,
-      })}
-    >
-      <Typography
-        fontSize={{ xs: "24px", md: "40px" }}
-        variant="h4"
-        fontWeight={500}
-      >
-        Agende sua consulta particular com especialistas perto de você
-      </Typography>
-
-      <Typography
-        sx={{ mt: 2 }}
-        fontSize={{ xs: "16px", md: "22px" }}
-        variant="h5"
-        color="textSecondary"
-      >
-        Consulta segura, rápida e com pagamento antecipado
-      </Typography>
-
-      <Stack component="form" sx={{ mt: 4, gap: 2 }}>
-        <Autocomplete
-          size={isMobile ? "small" : "medium"}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Especialidade ou médico"
-              variant="outlined"
-              slotProps={{
-                input: {
-                  sx: { borderRadius: 0 },
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  ),
+    <Stack component="form" sx={{ gap: 2, width: "100%" }}>
+      <Autocomplete
+        fullWidth
+        size={isMobile ? "small" : "medium"}
+        sx={{ border: "none" }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Especialidade ou médico"
+            variant="outlined"
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                sx: {
+                  borderRadius: 0,
+                  backgroundColor: "white",
+                  border: "none",
                 },
-              }}
-            />
-          )}
-          options={[]}
-        />
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search color="primary" />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        )}
+        options={[]}
+      />
 
-        <Autocomplete
-          size={isMobile ? "small" : "medium"}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Cidade ou região"
-              variant="outlined"
-              slotProps={{
-                input: {
-                  sx: { borderRadius: 0 },
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <PlaceOutlined />
-                    </InputAdornment>
-                  ),
-                },
-              }}
-            />
-          )}
-          options={[]}
-        />
+      <Autocomplete
+        fullWidth
+        size={isMobile ? "small" : "medium"}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Cidade ou região"
+            variant="outlined"
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                sx: { borderRadius: 0, backgroundColor: "white" },
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PlaceOutlined color="primary" />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        )}
+        options={[]}
+      />
 
-        <Button
-          variant="contained"
-          size={isMobile ? "medium" : "large"}
-          type="submit"
-        >
-          Buscar médicos
-        </Button>
-      </Stack>
+      <Button
+        variant="contained"
+        size="large"
+        type="submit"
+        sx={{ height: "48px" }}
+      >
+        Buscar médicos
+      </Button>
     </Stack>
   );
 };
