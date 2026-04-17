@@ -69,6 +69,7 @@ export const Hero = () => {
             </Typography>
 
             <Stack
+              component="form"
               direction={{ xs: "column", md: "row" }}
               spacing={2}
               sx={({ palette }) => ({
@@ -84,6 +85,7 @@ export const Hero = () => {
               <LocaleField />
 
               <Button
+                type="submit"
                 variant="contained"
                 sx={{
                   minWidth: { md: "120px" },

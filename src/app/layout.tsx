@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { AppProvider } from "@/context/AppProvider";
+import Script from "next/script";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -20,7 +21,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={outfit.variable}>
       <AppProvider>
-        <body>{children}</body>
+        <body>
+          {children}
+          <Script
+            src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}&libraries=places`}
+            strategy="beforeInteractive"
+          />
+        </body>
       </AppProvider>
     </html>
   );
