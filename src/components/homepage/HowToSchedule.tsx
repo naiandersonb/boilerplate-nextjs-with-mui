@@ -68,9 +68,9 @@ export const HowToSchedule = () => {
         <Typography
           sx={{ maxWidth: 400, marginX: "auto", mb: 8 }}
           fontSize={{ xs: "24px", md: "32px" }}
-          textAlign="center"
-          variant="h4"
           fontWeight="medium"
+          variant="h4"
+          textAlign="center"
         >
           Como agendar sua consulta no{" "}
           <Typography
