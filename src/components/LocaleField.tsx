@@ -1,79 +1,22 @@
+import { useSearchLocale } from "@/hooks/use-search-locale";
 import { Option } from "@/types/option";
 import { LocationOnOutlined } from "@mui/icons-material";
-import {
-  Autocomplete,
-  debounce,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { Autocomplete, InputAdornment, TextField } from "@mui/material";
 
 interface LocaleFieldProps {
   value?: Option;
   onChange?: (value: Option | string) => void;
-}
-
-interface PlaceType {
-  description: string;
-  place_id: string;
-  structured_formatting: {
-    main_text: string;
-    secondary_text: string;
-  };
+  noOptionsText?: string;
+  placeholder?: string;
 }
 
 export const LocaleField: React.FC<LocaleFieldProps> = ({
   onChange,
+  noOptionsText = "Digite pelo menos 3 caracteres para realizar a busca",
+  placeholder = "Cidade ou região",
   value,
 }) => {
-  const [inputValue, setInputValue] = useState("");
-  const [options, setOptions] = useState<Option[]>([]);
-
-  const autocompleteService = useMemo(
-    () =>
-      typeof window !== "undefined" && window.google
-        ? new google.maps.places.AutocompleteService()
-        : null,
-    [],
-  );
-
-  const fetchPredictions = useMemo(
-    () =>
-      debounce((input: string, callback: (results: PlaceType[]) => void) => {
-        if (!autocompleteService || input.length < 3) {
-          callback([]);
-          return;
-        }
-
-        autocompleteService.getPlacePredictions(
-          {
-            input,
-            types: ["(cities)"],
-            componentRestrictions: { country: "br" },
-          },
-          (predictions) => callback(predictions || []),
-        );
-      }, 400),
-    [autocompleteService],
-  );
-
-  useEffect(() => {
-    fetchPredictions(inputValue, (results) => {
-      const formattedOptions = results.map((place) => {
-        const city = place.structured_formatting.main_text;
-        const state = place.structured_formatting.secondary_text.replace(
-          ", Brasil",
-          "",
-        );
-
-        return {
-          label: `${city}, ${state}`,
-          value: place.place_id,
-        };
-      });
-      setOptions(formattedOptions);
-    });
-  }, [inputValue, fetchPredictions]);
+  const { options, setInputValue } = useSearchLocale();
 
   return (
     <Autocomplete
@@ -82,7 +25,7 @@ export const LocaleField: React.FC<LocaleFieldProps> = ({
       value={value as Option}
       filterOptions={(x) => x}
       includeInputInList
-      noOptionsText="Digite pelo menos 3 caracteres para realizar a busca"
+      noOptionsText={noOptionsText}
       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
       onChange={(_, newValue: Option | string | null) => {
         console.log({ newValue });
@@ -93,7 +36,7 @@ export const LocaleField: React.FC<LocaleFieldProps> = ({
         <TextField
           {...params}
           size="medium"
-          placeholder="Cidade ou região"
+          placeholder={placeholder}
           variant="outlined"
           slotProps={{
             input: {
