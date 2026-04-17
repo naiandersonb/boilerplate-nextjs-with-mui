@@ -24,7 +24,7 @@ export const ProfessionalOnboarding = () => {
   return (
     <Stack
       sx={({ palette }) => ({
-        paddingY: { xs: 4, md: 10 },
+        paddingY: { xs: "24px", md: 10 },
         paddingX: 2,
         backgroundColor: alpha(palette.primary.light, 0.2),
       })}

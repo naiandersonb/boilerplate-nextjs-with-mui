@@ -1,16 +1,6 @@
 "use client";
 
-import { LocationOnOutlined, Search } from "@mui/icons-material";
-import {
-  Autocomplete,
-  Box,
-  Button,
-  Stack,
-  TextField,
-  Typography,
-  Container,
-  InputAdornment,
-} from "@mui/material";
+import { Box, Button, Stack, Typography, Container } from "@mui/material";
 import { SpecialtiesField } from "../SpecialtiesField";
 import { LocaleField } from "../LocaleField";
 
