@@ -1,8 +1,5 @@
-"use client";
-
-import { Box, Button, Stack, Typography, Container } from "@mui/material";
-import { SpecialtiesField } from "../SpecialtiesField";
-import { LocaleField } from "../LocaleField";
+import { HeroSearchForm } from "@/components/HeroSearchForm";
+import { Box, Container, Stack, Typography } from "@mui/material";
 
 export const Hero = () => {
   return (
@@ -68,33 +65,7 @@ export const Hero = () => {
               resolva tudo online de forma rápida e segura.
             </Typography>
 
-            <Stack
-              component="form"
-              direction={{ xs: "column", md: "row" }}
-              spacing={2}
-              sx={({ palette }) => ({
-                mt: 4,
-                width: "100%",
-                maxWidth: { md: 900, lg: 900 },
-                backgroundColor: palette.common.white,
-                padding: { xs: "20px", md: "16px 24px" },
-                position: "relative",
-              })}
-            >
-              <SpecialtiesField />
-              <LocaleField />
-
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  minWidth: { md: "120px" },
-                  height: { xs: "56px", md: "auto" },
-                }}
-              >
-                Pesquisar
-              </Button>
-            </Stack>
+            <HeroSearchForm />
           </Box>
         </Stack>
       </Container>
