@@ -1,6 +1,6 @@
+import { AppProvider } from "@/context/AppProvider";
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
-import { AppProvider } from "@/context/AppProvider";
 import Script from "next/script";
 
 const outfit = Outfit({
