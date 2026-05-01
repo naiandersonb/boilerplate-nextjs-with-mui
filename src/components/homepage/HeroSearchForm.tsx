@@ -1,12 +1,12 @@
 "use client";
 
+import { AsyncAutocompleteField } from "@/components/AsyncAutocompleteField";
 import { useSearchForm } from "@/hooks/use-search-form";
 import { SearchFormData } from "@/schemas/search-form";
 import { Option } from "@/types/option";
 import { LocationOnOutlined, Search } from "@mui/icons-material";
 import { Button, InputAdornment, Stack } from "@mui/material";
 import { Controller } from "react-hook-form";
-import { AsyncAutocompleteField } from "./AsyncAutocompleteField";
 
 export const HeroSearchForm = () => {
   const { handleSubmit, control } = useSearchForm();

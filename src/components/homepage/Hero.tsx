@@ -1,4 +1,4 @@
-import { HeroSearchForm } from "@/components/HeroSearchForm";
+import { HeroSearchForm } from "@/components/homepage/HeroSearchForm";
 import { Box, Container, Stack, Typography } from "@mui/material";
 
 export const Hero = () => {
