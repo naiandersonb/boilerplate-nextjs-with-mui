@@ -1,5 +1,6 @@
 "use client";
 
+import { AppointmentsCalendar } from "@/components/AppointmentsCalendar";
 import { Description } from "@/components/Description";
 import { useDevice } from "@/hooks/use-device";
 import { Option } from "@/types/option";
@@ -63,6 +64,9 @@ export const DoctorCard = () => {
               onChange={handleSelectAddress}
               value={address?.value}
             />
+            <Box sx={{ mt: 4 }}>
+              <AppointmentsCalendar />
+            </Box>
           </Box>
         </Stack>
       </CardContent>
