@@ -1,15 +1,13 @@
 import { useDevice } from "@/hooks/use-device";
 import {
-  AccessTime,
   ChevronLeftOutlined,
   ChevronRightOutlined,
   KeyboardArrowDown,
+  KeyboardArrowUp,
 } from "@mui/icons-material";
 import {
-  alpha,
   Box,
   Button,
-  Chip,
   Grid,
   IconButton,
   Stack,
@@ -18,10 +16,21 @@ import {
 import { addDays, format, isToday, isTomorrow, subDays } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useState } from "react";
+import { AppointmentItem } from "./AppointmentItem";
 
-export const AppointmentsCalendar = () => {
+interface AppointmentsCalendarProps {
+  showAllAppointments?: boolean;
+}
+
+export const AppointmentsCalendar = ({
+  showAllAppointments = false,
+}: AppointmentsCalendarProps) => {
   const [referenceDate, setReferenceDate] = useState(new Date());
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(showAllAppointments);
+
+  const handleToggleShowAll = () => {
+    if (!showAllAppointments) setShowAll((prev) => !prev);
+  };
 
   const { isMobile } = useDevice();
   const count = isMobile ? 3 : 4;
@@ -54,42 +63,42 @@ export const AppointmentsCalendar = () => {
       <Typography variant="h6" sx={{ mb: 2 }}>
         Abril 2024
       </Typography>
+
       <Stack
         direction="row"
         spacing="6px"
         alignItems="flex-start"
         sx={{ height: "100%", overflow: "hidden", mb: 2 }}
       >
-        <IconButton
-          onClick={handlePrev}
-          size={isMobile ? "small" : "medium"}
-          sx={{ mt: 1 }}
-        >
-          <ChevronLeftOutlined fontSize="small" />
-        </IconButton>
+        <Box sx={{ pt: { xs: "4px", md: 0 } }}>
+          <IconButton onClick={handlePrev} size={isMobile ? "small" : "medium"}>
+            <ChevronLeftOutlined fontSize="small" />
+          </IconButton>
+        </Box>
 
         <Grid
           container
           flex={1}
           gap="6px"
           sx={[
-            {
+            ({ palette }) => ({
               height: "100%",
               paddingRight: "4px",
               transition: "max-height 0.5s ease-in-out",
-              maxHeight: showAll ? "1200px" : "320px",
+              maxHeight: showAll ? "1200px" : "220px",
               overflowY: showAll ? "visible" : "auto",
               overflowX: "hidden",
               "&::-webkit-scrollbar": { width: "6px" },
               "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "#ccc",
+                backgroundColor: palette.grey[50],
                 borderRadius: "10px",
               },
               "@keyframes slideIn": {
                 "0%": { opacity: 0, transform: "translateX(10px)" },
                 "100%": { opacity: 1, transform: "translateX(0)" },
               },
-            },
+            }),
+            (showAllAppointments || showAll) && { overflowY: "hidden" },
           ]}
         >
           {visibleDates.map((date) => (
@@ -123,49 +132,36 @@ export const AppointmentsCalendar = () => {
 
               <Stack spacing="6px" marginTop={2} sx={{ width: "100%" }}>
                 {Array.from({ length: 20 }).map((_, index) => (
-                  <Chip
-                    onClick={() => alert("clicado")}
-                    icon={<AccessTime color="primary" fontSize="small" />}
-                    label="09:00"
-                    key={index}
-                    sx={({ palette }) => ({
-                      width: "100%",
-                      backgroundColor: alpha(palette.primary.light, 0.1),
-                      color: palette.primary.dark,
-                      cursor: "pointer",
-                      "&:hover": {
-                        backgroundColor: alpha(palette.primary.light, 0.2),
-                      },
-                    })}
-                  />
+                  <AppointmentItem key={index} label={`time ${index + 1}`} />
                 ))}
               </Stack>
             </Grid>
           ))}
         </Grid>
 
-        <IconButton
-          onClick={handleNext}
-          size={isMobile ? "small" : "medium"}
-          sx={{ mt: 1 }}
-        >
-          <ChevronRightOutlined fontSize="small" />
-        </IconButton>
+        <Box sx={{ pt: { xs: "4px", md: 0 } }}>
+          <IconButton onClick={handleNext} size={isMobile ? "small" : "medium"}>
+            <ChevronRightOutlined fontSize="small" />
+          </IconButton>
+        </Box>
       </Stack>
-      <Stack
-        sx={({ palette }) => ({
-          borderTop: "1px solid",
-          borderTopColor: palette.grey[100],
-          py: 1,
-        })}
-      >
-        <Button
-          endIcon={<KeyboardArrowDown />}
-          onClick={() => setShowAll((prev) => !prev)}
+
+      {!showAllAppointments && (
+        <Stack
+          sx={({ palette }) => ({
+            borderTop: "1px solid",
+            borderTopColor: palette.grey[100],
+            py: 1,
+          })}
         >
-          Ver todos os horários
-        </Button>
-      </Stack>
+          <Button
+            endIcon={showAll ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            onClick={handleToggleShowAll}
+          >
+            {showAll ? "Mostrar menos" : "Ver todos os horários"}
+          </Button>
+        </Stack>
+      )}
     </Stack>
   );
 };

@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Address } from "./Address";
+import { AppointmentsDrawer } from "./AppointmentsDrawer";
 import { DoctorInfo } from "./DoctorInfo";
 import { SelectLocale } from "./SelectLocale";
 
@@ -58,16 +59,22 @@ export const DoctorCard = () => {
             <Address addressList={addressMock} />
             <Typography variant="h6">R$350,00</Typography>
           </Stack>
-          <Box sx={{ flex: 1, padding: { md: 2 }, paddingY: { xs: 2, md: 2 } }}>
-            <SelectLocale
-              localeList={addressMock}
-              onChange={handleSelectAddress}
-              value={address?.value}
-            />
-            <Box sx={{ mt: 4 }}>
-              <AppointmentsCalendar />
+          {isMobile ? (
+            <AppointmentsDrawer />
+          ) : (
+            <Box
+              sx={{ flex: 1, padding: { md: 2 }, paddingY: { xs: 2, md: 2 } }}
+            >
+              <SelectLocale
+                localeList={addressMock}
+                onChange={handleSelectAddress}
+                value={address?.value}
+              />
+              <Box sx={{ mt: 4 }}>
+                <AppointmentsCalendar />
+              </Box>
             </Box>
-          </Box>
+          )}
         </Stack>
       </CardContent>
     </Card>
