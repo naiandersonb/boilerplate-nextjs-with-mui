@@ -3,10 +3,12 @@ import {
   AccessTime,
   ChevronLeftOutlined,
   ChevronRightOutlined,
+  KeyboardArrowDown,
 } from "@mui/icons-material";
 import {
   alpha,
   Box,
+  Button,
   Chip,
   Grid,
   IconButton,
@@ -19,6 +21,7 @@ import { useState } from "react";
 
 export const AppointmentsCalendar = () => {
   const [referenceDate, setReferenceDate] = useState(new Date());
+  const [showAll, setShowAll] = useState(false);
 
   const { isMobile } = useDevice();
   const count = isMobile ? 3 : 4;
@@ -48,10 +51,20 @@ export const AppointmentsCalendar = () => {
 
   return (
     <Stack>
-      <Typography variant="h6">Abril 2024</Typography>
-
-      <Stack direction="row" spacing="6px" alignItems="flex-start">
-        <IconButton onClick={handlePrev} size={isMobile ? "small" : "medium"}>
+      <Typography variant="h6" sx={{ mb: 2 }}>
+        Abril 2024
+      </Typography>
+      <Stack
+        direction="row"
+        spacing="6px"
+        alignItems="flex-start"
+        sx={{ height: "100%", overflow: "hidden", mb: 2 }}
+      >
+        <IconButton
+          onClick={handlePrev}
+          size={isMobile ? "small" : "medium"}
+          sx={{ mt: 1 }}
+        >
           <ChevronLeftOutlined fontSize="small" />
         </IconButton>
 
@@ -59,13 +72,25 @@ export const AppointmentsCalendar = () => {
           container
           flex={1}
           gap="6px"
-          sx={{
-            overflow: "hidden",
-            "@keyframes slideIn": {
-              "0%": { opacity: 0, transform: "translateX(10px)" },
-              "100%": { opacity: 1, transform: "translateX(0)" },
+          sx={[
+            {
+              height: "100%",
+              paddingRight: "4px",
+              transition: "max-height 0.5s ease-in-out",
+              maxHeight: showAll ? "1200px" : "320px",
+              overflowY: showAll ? "visible" : "auto",
+              overflowX: "hidden",
+              "&::-webkit-scrollbar": { width: "6px" },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#ccc",
+                borderRadius: "10px",
+              },
+              "@keyframes slideIn": {
+                "0%": { opacity: 0, transform: "translateX(10px)" },
+                "100%": { opacity: 1, transform: "translateX(0)" },
+              },
             },
-          }}
+          ]}
         >
           {visibleDates.map((date) => (
             <Grid
@@ -73,18 +98,22 @@ export const AppointmentsCalendar = () => {
               key={date.toISOString()}
               sx={{
                 animation: "slideIn 0.3s ease-out",
-                display: "grid",
-                placeItems: "center",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <Box
                 sx={({ palette }) => ({
+                  position: "sticky",
+                  top: 0,
+                  zIndex: 2,
                   width: "100%",
                   border: "1px solid",
                   borderColor: palette.grey[100],
                   padding: 1,
                   display: "grid",
                   placeItems: "center",
+                  backgroundColor: palette.background.paper,
                 })}
               >
                 <Typography variant="body2" textAlign="center">
@@ -92,14 +121,7 @@ export const AppointmentsCalendar = () => {
                 </Typography>
               </Box>
 
-              <Stack
-                spacing="6px"
-                marginTop={2}
-                sx={{
-                  width: "100%",
-                  paddingX: "2px",
-                }}
-              >
+              <Stack spacing="6px" marginTop={2} sx={{ width: "100%" }}>
                 {Array.from({ length: 20 }).map((_, index) => (
                   <Chip
                     onClick={() => alert("clicado")}
@@ -110,6 +132,10 @@ export const AppointmentsCalendar = () => {
                       width: "100%",
                       backgroundColor: alpha(palette.primary.light, 0.1),
                       color: palette.primary.dark,
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: alpha(palette.primary.light, 0.2),
+                      },
                     })}
                   />
                 ))}
@@ -118,9 +144,27 @@ export const AppointmentsCalendar = () => {
           ))}
         </Grid>
 
-        <IconButton onClick={handleNext} size={isMobile ? "small" : "medium"}>
+        <IconButton
+          onClick={handleNext}
+          size={isMobile ? "small" : "medium"}
+          sx={{ mt: 1 }}
+        >
           <ChevronRightOutlined fontSize="small" />
         </IconButton>
+      </Stack>
+      <Stack
+        sx={({ palette }) => ({
+          borderTop: "1px solid",
+          borderTopColor: palette.grey[100],
+          py: 1,
+        })}
+      >
+        <Button
+          endIcon={<KeyboardArrowDown />}
+          onClick={() => setShowAll((prev) => !prev)}
+        >
+          Ver todos os horários
+        </Button>
       </Stack>
     </Stack>
   );
