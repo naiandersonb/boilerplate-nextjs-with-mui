@@ -1,14 +1,15 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, BoxProps, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-interface DescriptionProps {
+interface DescriptionProps extends BoxProps {
   text: string;
   minChars?: number;
 }
 export const Description: React.FC<DescriptionProps> = ({
   text,
-  minChars = 150,
+  minChars = 200,
+  ...rest
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isLongText = text.length > minChars;
@@ -23,7 +24,7 @@ export const Description: React.FC<DescriptionProps> = ({
     .slice(0, 4);
 
   return (
-    <Box sx={{ mt: 4 }}>
+    <Box sx={{ mt: 4 }} {...rest}>
       {paragraphs.map((paragraph, index) => (
         <Typography
           key={index}
@@ -32,7 +33,7 @@ export const Description: React.FC<DescriptionProps> = ({
           sx={{
             display: "-webkit-box",
             WebkitBoxOrient: "vertical",
-            WebkitLineClamp: isLongText && !isExpanded ? 3 : "none",
+            WebkitLineClamp: isLongText && !isExpanded ? 6 : "none",
             overflow: "hidden",
             mb: 1,
           }}

@@ -25,29 +25,29 @@ export const Address: React.FC<AddressProps> = ({ addressList = [] }) => {
         <Typography variant="caption">Endereço:</Typography>
 
         <Stack
-          direction="row"
+          direction={{ base: "column", md: "row" }}
           spacing={1}
-          alignItems="center"
+          alignItems={{ md: "center" }}
           sx={{ color: "text.secondary" }}
         >
-          <LocationOnOutlined sx={{ fontSize: 18 }} />
+          <Stack direction="row" spacing={1} alignItems="center">
+            <LocationOnOutlined sx={{ fontSize: 18 }} />
 
-          <Typography
-            variant="body2"
-            sx={[
-              {
-                fontSize: { xs: "12px", md: "14px" },
-              },
-              isMultipleAddress && {
-                maxWidth: "200px",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              },
-            ]}
-          >
-            {addressList[0].label}
-          </Typography>
+            <Typography
+              variant="body2"
+              sx={[
+                { fontSize: { xs: "12px", md: "14px" } },
+                isMultipleAddress && {
+                  maxWidth: { md: "200px" },
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                },
+              ]}
+            >
+              {addressList[0].label}
+            </Typography>
+          </Stack>
           {isMultipleAddress && (
             <Typography
               aria-describedby={id}

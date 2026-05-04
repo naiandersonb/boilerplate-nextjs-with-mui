@@ -1,3 +1,4 @@
+import { useDevice } from "@/hooks/use-device";
 import { Option } from "@/types/option";
 import { FormControl, MenuItem, Select, Typography } from "@mui/material";
 
@@ -12,6 +13,7 @@ export const SelectLocale = ({
   onChange,
   value = "",
 }: SelectLocaleProps) => {
+  const { isMobile } = useDevice();
   return (
     <FormControl fullWidth>
       <Typography variant="caption" component="label" sx={{ mb: 1 }}>
@@ -19,6 +21,7 @@ export const SelectLocale = ({
       </Typography>
       <Select
         displayEmpty
+        size={isMobile ? "small" : "medium"}
         sx={{ borderRadius: 0 }}
         variant="outlined"
         onChange={(evt) => onChange?.(evt.target.value)}
@@ -27,8 +30,8 @@ export const SelectLocale = ({
           if (!selected || selected.length === 0) {
             return (
               <Typography
-                component="span"
                 sx={{ color: "text.disabled", fontSize: "14px" }}
+                component="span"
               >
                 Selecione um local de atendimento
               </Typography>

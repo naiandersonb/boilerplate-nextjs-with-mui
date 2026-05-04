@@ -20,10 +20,12 @@ import { AppointmentItem } from "./AppointmentItem";
 
 interface AppointmentsCalendarProps {
   showAllAppointments?: boolean;
+  maxHeight?: `${string}px`;
 }
 
 export const AppointmentsCalendar = ({
   showAllAppointments = false,
+  maxHeight = "220px",
 }: AppointmentsCalendarProps) => {
   const [referenceDate, setReferenceDate] = useState(new Date());
   const [showAll, setShowAll] = useState(showAllAppointments);
@@ -58,6 +60,10 @@ export const AppointmentsCalendar = ({
     return format(date, "dd, EEEEEE", { locale: ptBR });
   };
 
+  const formatMonth = (date: Date) => {
+    return format(date, "MMMM", { locale: ptBR });
+  };
+
   return (
     <Stack>
       <Typography variant="h6" sx={{ mb: 2 }}>
@@ -70,7 +76,7 @@ export const AppointmentsCalendar = ({
         alignItems="flex-start"
         sx={{ height: "100%", overflow: "hidden", mb: 2 }}
       >
-        <Box sx={{ pt: { xs: "4px", md: 0 } }}>
+        <Box sx={{ pt: "8px" }}>
           <IconButton onClick={handlePrev} size={isMobile ? "small" : "medium"}>
             <ChevronLeftOutlined fontSize="small" />
           </IconButton>
@@ -85,7 +91,7 @@ export const AppointmentsCalendar = ({
               height: "100%",
               paddingRight: "4px",
               transition: "max-height 0.5s ease-in-out",
-              maxHeight: showAll ? "1200px" : "220px",
+              maxHeight: showAll ? "1200px" : maxHeight,
               overflowY: showAll ? "visible" : "auto",
               overflowX: "hidden",
               "&::-webkit-scrollbar": { width: "6px" },
@@ -119,7 +125,7 @@ export const AppointmentsCalendar = ({
                   width: "100%",
                   border: "1px solid",
                   borderColor: palette.grey[100],
-                  padding: 1,
+                  padding: "4px",
                   display: "grid",
                   placeItems: "center",
                   backgroundColor: palette.background.paper,
@@ -127,6 +133,9 @@ export const AppointmentsCalendar = ({
               >
                 <Typography variant="body2" textAlign="center">
                   {formatDateLabel(date)}
+                </Typography>
+                <Typography variant="caption" color="primary">
+                  {formatMonth(date)}
                 </Typography>
               </Box>
 
@@ -139,7 +148,7 @@ export const AppointmentsCalendar = ({
           ))}
         </Grid>
 
-        <Box sx={{ pt: { xs: "4px", md: 0 } }}>
+        <Box sx={{ pt: "8px" }}>
           <IconButton onClick={handleNext} size={isMobile ? "small" : "medium"}>
             <ChevronRightOutlined fontSize="small" />
           </IconButton>
@@ -149,9 +158,10 @@ export const AppointmentsCalendar = ({
       {!showAllAppointments && (
         <Stack
           sx={({ palette }) => ({
+            mt: "auto",
             borderTop: "1px solid",
             borderTopColor: palette.grey[100],
-            py: 1,
+            pt: 1,
           })}
         >
           <Button

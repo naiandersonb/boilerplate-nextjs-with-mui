@@ -5,18 +5,41 @@ import { Description } from "@/components/Description";
 import { useDevice } from "@/hooks/use-device";
 import { Option } from "@/types/option";
 import {
+  Instagram,
+  LanguageOutlined,
+  PhoneOutlined,
+} from "@mui/icons-material";
+import {
   Box,
   Card,
   CardContent,
   Divider,
+  IconButton,
+  IconButtonProps,
   Stack,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { Address } from "./Address";
-import { AppointmentsDrawer } from "./AppointmentsDrawer";
+import { AppointmentsDialog } from "./AppointmentsDialog";
 import { DoctorInfo } from "./DoctorInfo";
 import { SelectLocale } from "./SelectLocale";
+
+const ContactButton = (props: IconButtonProps) => {
+  return (
+    <IconButton
+      sx={({ palette }) => ({
+        border: "1px solid",
+        borderColor: palette.grey[100],
+        color: palette.primary.main,
+        ":disabled": {
+          color: palette.text.disabled,
+        },
+      })}
+      {...props}
+    />
+  );
+};
 
 export const DoctorCard = () => {
   const [address, setAddress] = useState<Option>();
@@ -54,13 +77,30 @@ export const DoctorCard = () => {
           >
             <DoctorInfo />
 
-            <Description text="Possui graduação em Medicina pela Universidade Federal do Rio Grande do Norte (2004). Realizou Residência Médica em Dermatologia na Irmandade Santa Casa de Misericórdia de São Paulo (2005-2008). Tem experiência e atuação em Medicina, com ênfase na especialidade de Clínica Médica, Dermatologia e na subespecialidade de Cirurgia Dermatológica, Cosmiatria e Cabelos. Atualmente é professor efetivo da disciplina de Dermatologia da Universidade Federal do Piauí e preceptor de residência médica de dermatologia do HU. Ministra diversas palestras no congresso Brasileiro de Dermatologia e no Congresso Brasileiro de Cirurgia Dermatologica. Possui Mestrado em Ciencias e Saude, com ênfase em Dermatologia, cujo tema foi quelóides e cicatrizes hipertróficas, pela Universidade Federal do Piauí." />
+            <Description
+              minChars={400}
+              text="Possui graduação em Medicina pela Universidade Federal do Rio Grande do Norte (2004). Realizou Residência Médica em Dermatologia na Irmandade Santa Casa de Misericórdia de São Paulo (2005-2008). Tem experiência e atuação em Medicina, com ênfase na especialidade de Clínica Médica, Dermatologia e na subespecialidade de Cirurgia Dermatológica, Cosmiatria e Cabelos. Atualmente é professor efetivo da disciplina de Dermatologia da Universidade Federal do Piauí e preceptor de residência médica de dermatologia do HU. Ministra diversas palestras no congresso Brasileiro de Dermatologia e no Congresso Brasileiro de Cirurgia Dermatologica. Possui Mestrado em Ciencias e Saude, com ênfase em Dermatologia, cujo tema foi quelóides e cicatrizes hipertróficas, pela Universidade Federal do Piauí."
+            />
+
+            <Stack direction="row" spacing={1}>
+              <ContactButton>
+                <PhoneOutlined />
+              </ContactButton>
+
+              <ContactButton disabled>
+                <LanguageOutlined />
+              </ContactButton>
+
+              <ContactButton>
+                <Instagram />
+              </ContactButton>
+            </Stack>
 
             <Address addressList={addressMock} />
             <Typography variant="h6">R$350,00</Typography>
           </Stack>
           {isMobile ? (
-            <AppointmentsDrawer />
+            <AppointmentsDialog />
           ) : (
             <Box
               sx={{ flex: 1, padding: { md: 2 }, paddingY: { xs: 2, md: 2 } }}
@@ -71,7 +111,7 @@ export const DoctorCard = () => {
                 value={address?.value}
               />
               <Box sx={{ mt: 4 }}>
-                <AppointmentsCalendar />
+                <AppointmentsCalendar maxHeight="280px" />
               </Box>
             </Box>
           )}

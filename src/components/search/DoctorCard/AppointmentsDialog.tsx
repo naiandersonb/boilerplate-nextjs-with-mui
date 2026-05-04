@@ -25,7 +25,7 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export const AppointmentsDrawer = () => {
+export const AppointmentsDialog = () => {
   const drawerDisclosure = useDisclosure();
   return (
     <>
@@ -39,7 +39,6 @@ export const AppointmentsDrawer = () => {
 
       <Dialog
         fullScreen
-        keepMounted
         open={drawerDisclosure.isOpen}
         onClose={drawerDisclosure.onClose}
         slots={{ transition: Transition }}
